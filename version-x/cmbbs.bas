@@ -62,35 +62,65 @@
 300 O$="{gray}{reverse on}"+OA$+"{reverse off}{purple} sez..{white} "+OL$:GOSUB30
 305 R$="{cyan}{reverse on}["+LEFT$(MID$(TI$,3),2)+"]{reverse off} {reverse on}["+TM$+"]{reverse off} {reverse on}[2400]{reverse off}"
 310 R$=R$+"{blue} [?]=:>":GOSUB40:O$="{ct n}":GOSUB30:GOSUB100:GOSUB5095
+!--- Main menu start-----------------------
+!--- Download files:
 315 IFI$="dow"THENK1=0:GOSUB3185:GOTO280
+!--- Directory list:
 320 IFI$="dir"ORI$="$"THENGOSUB2920:GOTO280
+!--- Upload files:
 330 IFI$="upl"THENGOSUB3275:GOTO280
+!--- Change directory:
 335 IFI$="cha"ANDSL>=PEEK(837)THENGOSUB5835:GOTO280
+!--- Sysop menu
 340 IFI$="bad"ANDSL>=10GOTO3945
+!--- Fake sysop menu command. Kick user!
 345 IFI$="cmd"THENO$="{reverse off}{red}Nice Try!!":GOSUB30:GOSUB35:XZ=4:GOTO290
 350 GOSUB115:IF(VAL(I$)>0ORLEFT$(I$,1)="0")ANDSL>0THENGOSUB1855:GOTO280
+!--- Display main menu:
 355 GOSUB95:IFI$="?"ORI$=G$GOTO255
+!--- Chat:
 360 IFI$="c"THENGOSUB2755:GOTO285
+!--- Read msgs:
 365 IFI$="r"THENXX=1:MS=0:GOSUB850:GOTO280
+!--- New msg scan:
 370 IFI$="n"THENGOSUB4525:GOTO280
+!--- Change to graphics mode:
 375 IFI$="*"THENFT$="graphic":GOTO275
+!--- Caller stats:
 380 IFI$="@"THENGOSUB1760:GOTO280
+!--- Sysop notes:
 385 IFI$="w"THENFT$="list":GOTO275
+!--- Change msg base:
 390 IFI$="#"THENGOSUB1835:GOTO280
+!--- Scan msgs:
 395 IFI$="s"THENGOSUB745:GOTO280
+!--- Change oneliner
 396 IFI$="%"ANDSL>=1THENGOSUB461:GOTO280
+!--- Post a msg:
 400 IFI$="p"THENGOSUB980:GOTO280
+!--- Change password:
 405 IFI$="!"THENGOSUB550:GOTO280
+!--- Baud rate change (broken?)
 410 IFI$="b"THENMQ=1-MQ:GOSUB150:GOTO280
+!--- Abort?
 415 IFI$="a"ANDAK<>1ANDPEEK(841)<>0GOTO2110
+!--- Info file:
 420 IFI$="i"THENFT$="info":GOTO275
+!--- Help file:
 425 IFI$="h"THENFT$="help":GOTO275
+!--- Opening msg file:
 430 IFI$="o"ANDGU=1THENFT$="guest welcome":GOTO275
+!--- Opening msg file:
 435 IFI$="o"THENFT$="welcome":GOTO275
+!--- Feedback to sysop:
 440 IFI$="f"THENGOSUB1070:GOTO280
+!--- Goodbye (logoff):
 445 IFI$="g"GOTO480
+!--- Library section:
 450 IFI$="l"THENGOSUB2830:GOTO280
+!--- Mail section:
 455 IFI$="m"THENGOSUB1505:GOTO280
+!--- Main menu end ------------------------
 460 GOSUB35:XZ=XZ+1:GOTO285
 461 O$="What ya got to say for yourself":GOSUB30
 462 R$="=>":GOSUB40:GOSUB610:IFI$=""THENRETURN
